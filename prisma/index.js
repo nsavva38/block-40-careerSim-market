@@ -11,7 +11,7 @@ const prisma = new PrismaClient().$extends({
             username,
             password: hashed
           }
-        })
+        });
         return user;
       },
       async login(username, password) {

@@ -2,6 +2,15 @@ const express = require("express");
 const router = express.Router();
 module.exports = router;
 
+const jwt = require("jsonwebtoken");
+const JWT_SECRET = process.env.JWT_SECRET;
+
+const createToken = (id) => {
+  return jwt.sign({id}, JWT_SECRET, { expiresIn: "1d" });
+}
+
+const prisma = require("../prisma");
+
 router.post("/register", async (req, res, next) => {
   // Grab credentials of user
   const { username, password } = req.body;
