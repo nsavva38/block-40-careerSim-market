@@ -1,4 +1,4 @@
-require("dontenv").config();
+require("dotenv").config();
 
 const express = require("express");
 const app = express();
@@ -7,7 +7,7 @@ const PORT = process.env.PORT ?? 3000;
 app.use(require("morgan")("dev"));
 app.use(express.json());
 
-
+app.use(require("./routes/auth"));
 
 app.use((req, res, next) => {
   next({
