@@ -7,7 +7,8 @@ const PORT = process.env.PORT ?? 3000;
 app.use(require("morgan")("dev"));
 app.use(express.json());
 
-app.use(require("./routes/auth"));
+app.use(require("./routes/auth").router);
+app.use("/orders", require("./routes/orders"));
 
 app.use((req, res, next) => {
   next({

@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-module.exports = router;
+
 
 const jwt = require("jsonwebtoken");
 const JWT_SECRET = process.env.JWT_SECRET;
@@ -10,6 +10,25 @@ const createToken = (id) => {
 }
 
 const prisma = require("../prisma");
+
+
+router.use(async (req, res, next) => {
+  const authHeader = req.headers.authorization;
+  const token = authHeader?.slice(7);
+  if (!token) return next();
+
+  try {
+    const { id } = jwt.verify(token, JWT_SECRET);
+    const user = await prisma.user.findUniqueOrThrow({
+      where: { id }
+    });
+    req.user = user;
+    next();
+  } catch (e) {
+    next(e);
+  }
+});
+
 
 router.post("/register", async (req, res, next) => {
   // Grab credentials of user
@@ -48,3 +67,19 @@ router.post("/login", async (req, res, next) => {
     next(e);
   }
 });
+
+const authenticate = (req, res, next) => {
+  if (req.user) {  //req.customer?? maybe not cus i dont have a customer model
+    next();
+  } else {
+    next({
+      status: 401,
+      message: "You must be logged in."
+    });
+  }
+};
+
+module.exports = {
+  router,
+  authenticate
+};

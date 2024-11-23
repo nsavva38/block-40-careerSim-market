@@ -9,7 +9,9 @@ Content-Type: application/json
   "password": "starwars"
 }
 
+
 ### POST /login
+# @name login
 POST {{host}}/login
 Content-Type: application/json
 
@@ -17,3 +19,11 @@ Content-Type: application/json
   "username": "Anakin Skywalker",
   "password": "starwars"
 }
+
+###
+@token = {{login.response.body.token}}
+
+
+### GET /orders
+GET {{host}}/orders
+Authorization: Bearer {{token}}
