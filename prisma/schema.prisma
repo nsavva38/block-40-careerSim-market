@@ -15,13 +15,13 @@ datasource db {
 
 model User {
   id Int @id @default(autoincrement())
-  username String
+  username String @unique
   password String
   orders Order[]
 }
 
 model Order {
-  id Int @id @default(autoincrement())
+  id   Int      @id @default(autoincrement())
   date String
   note String
 
@@ -32,9 +32,9 @@ model Order {
 }
 
 model Product {
-  id Int @id @default(autoincrement())
-  title String
+  id          Int      @id @default(autoincrement())
+  title       String
   description String
-  price Float
+  price       Float
   orders Order[]
 }
