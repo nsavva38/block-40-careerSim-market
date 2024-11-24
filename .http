@@ -42,8 +42,18 @@ Content-Type: application/json
 }
 
 
+
+
+
 ###
 @token = {{login.response.body.token}}
+
+### Get /products
+GET {{host}}/products
+
+### GET specific product
+GET {{host}}/products/3
+Authorization: Bearer {{token}}
 
 
 ### GET /orders
