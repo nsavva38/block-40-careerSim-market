@@ -9,6 +9,7 @@ app.use(express.json());
 
 app.use(require("./routes/auth").router);
 app.use("/orders", require("./routes/orders"));
+app.use("/products", require("./routes/products"));
 
 app.use((req, res, next) => {
   next({
