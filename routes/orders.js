@@ -16,7 +16,27 @@ router.get("/", authenticate, async (req, res, next) => {
   }
 });
 
-router.post("/");
+
+
+router.post("/", authenticate, async (req, res, next) => {
+  const { date, note, productIds } = req.body;
+
+  try{
+      const products = productIds.map((id) => ({ id }));
+      const order = await prisma.order.create({
+        data: {
+          date,
+          note,
+          customerId: req.user.id,
+          products: { connect: products },
+        },
+      });
+      res.status(201).json(order);
+
+  } catch (e) {
+    next(e);
+  }
+});
 
 
 router.get("/:id");

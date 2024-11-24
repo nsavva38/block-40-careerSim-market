@@ -27,3 +27,14 @@ Content-Type: application/json
 ### GET /orders
 GET {{host}}/orders
 Authorization: Bearer {{token}}
+
+### POST new order
+POST {{host}}/orders
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "date": "12-25-2024",
+  "note": "Santa needs these",
+  "productIds": [1,3,5]
+}
