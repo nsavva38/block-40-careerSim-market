@@ -9,6 +9,15 @@ Content-Type: application/json
   "password": "starwars"
 }
 
+### POST /register
+POST {{host}}/register
+Content-Type: application/json
+
+{
+  "username": "Obi Wan",
+  "password": "starwars"
+}
+
 
 ### POST /login
 # @name login
@@ -19,6 +28,19 @@ Content-Type: application/json
   "username": "Anakin Skywalker",
   "password": "starwars"
 }
+
+
+
+### POST /login
+# @name login
+POST {{host}}/login
+Content-Type: application/json
+
+{
+  "username": "Obi Wan",
+  "password": "starwars"
+}
+
 
 ###
 @token = {{login.response.body.token}}
@@ -38,3 +60,7 @@ Content-Type: application/json
   "note": "Santa needs these",
   "productIds": [1,3,5]
 }
+
+### GET specific order
+GET {{host}}/orders/1
+Authorization: Bearer {{token}}

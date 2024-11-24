@@ -39,4 +39,22 @@ router.post("/", authenticate, async (req, res, next) => {
 });
 
 
-router.get("/:id");
+router.get("/:id", authenticate, async (req, res, next) => {
+  const { id } = req.params;
+
+  try {
+    const order = await prisma.order.findUniqueOrThrow({
+      where: { id: +id },
+      // include: { orders: true },  // might not need this line
+    });
+    if (order.customerId !== req.user.id) {
+      return next({
+        status: 403,
+        message: "You did not make this order."
+      });
+    }
+    res.json(order);
+  } catch (e) {
+    next(e);
+  }
+});
