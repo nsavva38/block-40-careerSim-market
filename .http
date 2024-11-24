@@ -71,6 +71,21 @@ Content-Type: application/json
   "productIds": [1,3,5]
 }
 
+
+### POST new order
+POST {{host}}/orders
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "date": "11-12-2024",
+  "note": "Nina needs these",
+  "productIds": [2,4,6]
+}
+
+
+
+
 ### GET specific order
 GET {{host}}/orders/1
 Authorization: Bearer {{token}}
